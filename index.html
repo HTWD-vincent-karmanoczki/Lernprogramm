@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="mobile-web-app-capable" content="yes" />
+
+    <title>Quiz-App</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="scripts/style.css" />
+    <link rel="stylesheet" href="scripts/navigation-bar.css" />
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,600&display=swap" rel="stylesheet">
+    <!-- kaTeX -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+    <!-- Tone.js for playing tones -->
+    <script src="https://cdn.jsdelivr.net/npm/tone@next/build/Tone.js"></script>
+    
+    <!-- VexFlow -->
+    <script src="https://cdn.jsdelivr.net/npm/vexflow@4.2.2/build/cjs/vexflow.js"></script>
+
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" href="images/logo.png" />
+
+    <noscript>
+        Bitte aktivieren Sie JavaScript, um diese Seite nutzen zu können!
+    </noscript>
+</head>
+<body>
+
+    <button id="sidebar-toggle" aria-label="Menü öffnen">
+        <span class="icon-hamburger">&#9776;</span>
+        <span class="icon-close">&times;</span>
+    </button>
+
+    <div id="app">
+
+        <!-- Nav Bar (to change between quizzes) -->
+        <nav id="sidebar">
+            <img src="images/logo.png" alt="Logo" />
+            <ul id="nav-list"></ul>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main id="content">
+            <section id="view-home" class="view">
+                <h1>Willkommen zur Quiz-App!</h1>
+                <p>Wählen Sie ein Quiz aus, um zu beginnen!</p>
+                <div id="quiz-buttons"></div>
+            </section>
+            <section id="view-start" class="view hidden">
+                <h2 id="start-category"></h2>
+                <p id="start-description"></p>
+                <p>Wählen Sie die Anzahl der Fragen:</p>
+                <input type="number" id="question-count" min="1" max="20" value="5">
+                <button id="start-quiz">Quiz starten</button>
+            </section>
+            <section id="view-quiz" class="view hidden">
+                <h2 id="quiz-question"></h2>
+                <div id="notes"></div>
+                <div id="quiz-answer-buttons"></div>
+            </section>
+            <section id="view-results" class="view hidden">
+                <h2>Quiz Ergebnisse</h2>
+                <p id="results-category"></p>
+                <p id="results-questions"></p>
+                <p id="results-first-try"></p>
+                <p id="results-time"></p>
+                <p id="results-mistakes"></p>
+                <button id="restart-quiz">Neues Quiz starten</button>
+            </section>
+        </main>
+
+        <aside id="quiz-statistics" class="hidden">
+            <h2 class="statistics">Statistik</h2>
+            <progress id="progress-bar" value="0" max="0"></progress>
+            <p id="wrong"></p>
+        </aside>
+
+    </div>
+
+    <!-- JavaScript -->
+
+    <!-- REST -->
+    <script type="module" src="scripts/rest.js"></script>
+
+    <!-- Initialize MVP and quiz logic -->
+    <script type="module" src="scripts/main.js"></script>
+
+    <!-- Navigation Button to toggle the nav bar -->
+    <script>
+        const sidebar = document.getElementById('sidebar');
+        const toggleBtn = document.getElementById('sidebar-toggle');
+        const app = document.getElementById('app');
+        toggleBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+            toggleBtn.classList.toggle('open');
+            app.classList.toggle('sidebar-open');
+        });
+
+        // Close sidebar when clicking outside of it
+        document.addEventListener('click', (e) => {
+            if (!sidebar.contains(e.target) && !toggleBtn.contains(e.target)) {
+                sidebar.classList.remove('open');
+                toggleBtn.classList.remove('open');
+                app.classList.remove('sidebar-open');
+            }
+        });
+    </script>
+
+    <!-- Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('scripts/sw.js')
+                    .then(registration => {
+                        console.log('Service Worker registered with scope:', registration.scope);
+                    })
+                    .catch(error => {
+                        console.error('Service Worker registration failed:', error);
+                    });
+            });
+        }
+    </script>
+</body>
+
+</html>

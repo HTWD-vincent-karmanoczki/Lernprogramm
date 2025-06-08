@@ -1,0 +1,15 @@
+{
+    "name": "Quiz-App",
+    "short_name": "Quiz",
+    "start_url": "index.html",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#222529",
+    "icons": [
+      {
+        "src": "images/logo.png",
+        "sizes": "1024x1024 512x512 192x192 128x128",
+        "type": "image/png"
+      }
+    ]
+  }

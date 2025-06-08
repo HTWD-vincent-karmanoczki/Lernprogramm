@@ -1,0 +1,192 @@
+:root {
+    --bg-color: #222529;
+    --hover-color: #33363a;
+    --text-color: #e0e0e0;
+    --font-family: 'Poppins', Arial, Helvetica, sans-serif;
+    --correct-color: #39ff3f; /* Green for correct answers */
+    --wrong-color: #ff2e1f; /* Red for wrong answers */
+}
+
+/* Set font for all texts */
+body, button, input, select, textarea {
+    font-family: var(--font-family);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Center everything inside main#content */
+#app {
+    display: flex;
+    flex-direction: row;
+    min-height: 100vh;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+#content {
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    flex: 1; /* Allow content to grow and fill available space */
+    padding: 1rem; /* Add some padding around the content */
+    box-sizing: border-box; /* Include padding in width/height calculations */
+    text-align: center; /* Center text inside main#content */
+    transition: margin-left 0.3s cubic-bezier(.4,0,.2,1), width 0.3s cubic-bezier(.4,0,.2,1);
+    margin-left: 0;
+}
+
+#view-home, #view-start, #view-quiz, #view-results {
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    align-items: center; /* Center children horizontally */
+    justify-content: center; /* Center children vertically */
+    flex: 1; /* Allow view to grow and fill available space */
+    box-sizing: border-box; /* Include padding in width/height calculations */
+}
+
+#view-home h1 {
+    font-size: 2rem;
+    margin-bottom: 3rem;
+}
+
+#view-home p, #view-start p {
+    font-size: 1.3rem;
+}
+
+#quiz-buttons, #quiz-answer-buttons {
+    display: flex;
+    flex-direction: row; /* Align buttons horizontally */
+    flex-wrap: wrap; /* Allow buttons to wrap if needed */
+    align-items: center; /* Center buttons vertically */
+    justify-content: center; /* Center buttons */
+    gap: 1.5rem; /* Add space between buttons */
+}
+
+#quiz-answer-buttons .correct {
+    border: 0.5rem solid var(--correct-color);
+}
+#quiz-answer-buttons .wrong {
+    border: 0.5rem solid var(--wrong-color);
+}
+
+#restart-quiz {
+    margin-top: 3rem;
+}
+
+#view-home button, #view-start button, #view-quiz button, #restart-quiz {
+    font-size: 1rem;
+    width: 10rem;
+    height: 4rem;
+    border: none;
+    background: var(--bg-color);
+    color: var(--text-color);
+    transition: transform 0.2s ease-in-out, background 0.2s ease-in-out;
+    transform: scale(1);
+}
+
+#view-home button:hover, #view-start button:hover, #view-quiz button:hover, #restart-quiz:hover {
+    background: var(--hover-color);
+    transform: scale(1.2);
+}
+
+#view-start h1 {
+    font-size: 2rem;
+    margin-top: 6rem;
+    margin-bottom: 6rem;
+}
+
+aside {
+    width: 20rem;
+    background: var(--bg-color);
+    padding-top: 4rem;
+    color: var(--text-color);
+    box-sizing: border-box;
+    z-index: 1000; /* Ensure sidebar is above other content */
+    height: auto;
+}
+
+#question-count {
+    font-size: 1.3rem;
+    text-align: center;
+    display: block;
+    margin: 1.5rem auto 2rem auto; /* oben, rechts, unten, links */
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    background: var(--bg-color);
+    color: var(--text-color);
+    width: 6rem;
+    box-sizing: border-box;
+}
+
+#statistics {
+    margin: 0;
+}
+
+/* Remove number input spinners in Chrome, Safari, Edge */
+#question-count::-webkit-outer-spin-button,
+#question-count::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Remove number input spinners in Firefox */
+#question-count[type="number"] {
+    -moz-appearance: textfield;
+}
+
+@media (max-width: 800px) {
+
+    #app {
+        flex-direction: column;
+    }
+
+    aside {
+        width: 100%;
+        order: 2;
+    }
+
+    #content {
+        order: 1;
+        width: 100%;
+    }
+
+    #view-home h1,
+    #view-start h1 {
+        font-size: 1.5rem;
+        margin-bottom: 0rem;
+    }
+
+    #view-home p,
+    #view-start p {
+        font-size: 1rem;
+    }
+
+    #quiz-buttons, #quiz-answer-buttons {
+        flex-direction: column; /* Stack buttons vertically */
+        align-items: center; /* Center buttons horizontally */
+    }
+
+
+}
+
+@media (min-width: 801px) {
+    .sidebar-open #content {
+        margin-left: 20rem;
+        width: calc(100% - 20rem);
+    }
+}
+
+@media (max-width: 800px) {
+    .sidebar-open #content {
+        margin-left: 0;
+        width: 100%;
+    }
+}

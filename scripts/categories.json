@@ -1,0 +1,24 @@
+{
+    "mathe": {
+        "display-name": "Mathemtik",
+        "description": "Zum Lenrnen von mathematischen Konzepten und Operationen.",
+        "isLocal": true
+    },
+    "noten": {
+        "display-name": "Musiknoten",
+        "description": "Zum Lernen von Musiknoten und Tonleitern.",
+        "isLocal": true,
+        "vexflow": true
+    },
+    "akkorde": {
+        "display-name": "Akkorde",
+        "description": "Zum Lernen von Musikakkorden und Harmonien.",
+        "isLocal": true,
+        "vexflow": true
+    },
+    "it": {
+        "display-name": "IT",
+        "description": "Zum Lernen von Internet-Protokollen und Technologien.",
+        "isLocal": false
+    }
+}
